@@ -1,0 +1,56 @@
+---
+title: "farsfuns-Intro"
+author: "Maciej Nasinski"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{farsfuns-Intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+#About
+
+The package was built under data from the US National Highway Traffic Safety Administration's Fatality Analysis Reporting System, which is a nationwide census providing the American public yearly data regarding fatal injuries suffered in motor vehicle traffic crashes. You can find additional information under this link [**FARS**](https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars) but be careful the link could be changed in the future. 
+Data could be downloaded directly from this link
+**`ftp://ftp.nhtsa.dot.gov/fars/2016/National/FARS2016NationalCSV.zip`**
+The zip file contains many other files but most important is the *accident*. Package could offer downloading a data for certain years but this will deteriorate time-performance. Thus data for a few years are compressed and attach to package - years from **2013** to **2016**.
+
+There is provided functions to help to build summary as fast and clearly as possible from the accident data. You will be able to produce summary tables or maps of US with locatlozation of accidents.
+
+#Usage
+
+##LOADING PACKAGE
+
+```{r}
+library(farsfuns)
+```
+
+
+##SUMMARY TABLE
+
+Genereting summary table of number of accidens across given years and months.
+
+```{r}
+fars_summarize_years(2013:2015)
+```
+
+##SUMMARY MAP
+
+Map of accidents for a certain US state and year.
+
+A data.frame with all states and their numbers from [**manuals**](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812315) could be invoke by:
+
+```{r}
+data(us_states)
+head(us_states)
+```
+
+Plot a map for TEXAS:
+
+```{r}
+fars_map_state(48, 2015)
+```
+
+ 

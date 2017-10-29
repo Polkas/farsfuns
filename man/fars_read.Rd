@@ -25,6 +25,7 @@ If the file does not exist function will generate an error.
    fars_read(filename)
 }
 
+
 }
 \seealso{
 \code{\link{make_filename}} \code{\link{fars_read_years}} \code{\link{fars_summarize_years}} \code{\link{fars_map_state}}

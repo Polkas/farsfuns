@@ -14,13 +14,12 @@
 #'    fars_read(filename)
 #' }
 #'
-#' @import readr dplyr
 #'
 #' @export
 
 
 fars_read <- function(filename) {
-  if(!file.exists(filename))
+  if(!file.exists(system.file("exdata",filename,package = "farsfuns")))
     stop("file '", filename, "' does not exist")
   data <- suppressMessages({
     readr::read_csv(system.file("exdata",filename,package = "farsfuns"))
@@ -69,7 +68,7 @@ make_filename <- function(year) {
 #'    fars_read_years(list(year:(year+n))) #example of error (return NULL)
 #' }
 #'
-#' @import dplyr
+#'@import magrittr
 #'
 #' @export
 fars_read_years <- function(years) {
@@ -77,7 +76,7 @@ fars_read_years <- function(years) {
     file <- make_filename(year)
     tryCatch({
       dat <- fars_read(file)
-      dplyr::mutate_(dat, `year` = "YEAR") %>%
+      dplyr::mutate_(dat, "year" = year) %>%
         dplyr::select_("MONTH", "year")
     }, error = function(e) {
       warning("invalid year: ", year)
@@ -103,15 +102,15 @@ fars_read_years <- function(years) {
 #'
 #' @inheritParams fars_read_years
 #'
-#' @import tidyr dplyr
+#'@import magrittr
 #'
 #' @export
 fars_summarize_years <- function(years) {
   dat_list <- fars_read_years(years)
   dplyr::bind_rows(dat_list) %>%
-    dplyr::group_by_("YEAR", "MONTH")%>%
-    dplyr::summarize(n = n()) %>%
-    tidyr::spread_("YEAR", "n")
+    dplyr::group_by_("year", "MONTH")%>%
+    dplyr::summarize_("n" = "n()") %>%
+    tidyr::spread_("year", "n")
 }
 
 #' \code{fars_map_state} filters the data by a certain US state and year and plots a map of accidents in that state.
@@ -125,8 +124,6 @@ fars_summarize_years <- function(years) {
 #' @source Coursera Mastering Software Development in R - Johns Hopkins University
 #'
 #' @seealso \code{\link{make_filename}} \code{\link{fars_read_years}} \code{\link{fars_summarize_years}} \code{\link{fars_read}}
-#'
-#' @import maps dplyr
 #'
 #' @examples
 #' \dontrun{
@@ -157,15 +154,3 @@ fars_map_state <- function(state.num, year) {
     graphics::points(LONGITUD, LATITUDE, pch = 46)
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
