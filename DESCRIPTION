@@ -1,0 +1,21 @@
+Package: farsfuns
+Title: accident data as fast and clearly as possible
+Version: 0.0.0.9000
+Authors@R: person("Maciej", "Nasinski", email = "nasinski.maciej@gmail.com", role = c("aut", "cre"))
+Description: 
+	The package will be using data from the US National Highway Traffic Safety Administration's Fatality Analysis Reporting System, 
+	which is a nationwide census providing the American public yearly data regarding fatal injuries suffered in motor vehicle traffic crashes.
+	There is provided functions to help to build summary as fast and clearly as possible from the accident data.
+Imports:
+	dplyr,
+	tidyr,
+	maps,
+	readr,
+	stats
+Suggests:
+	testthat
+Depends: R (>= 3.4.1)
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
